@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
-    <a class="navbar-brand ml-5" href="/">Laravel Livewire SPA Login System</a>
+    <a class="navbar-brand ml-5" href="/">NET CLOUD SYSTEM</a>
     <ul class="navbar-nav ml-auto mr-5">
         @guest
             <li class="nav-item">

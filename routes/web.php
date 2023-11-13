@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\Auth\AuthenticatedController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\Login;
+use App\Http\Livewire\Auth\Login;
+use App\Http\Livewire\Navbar;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,5 @@ use App\Http\Livewire\Login;
 |
 */
 
-Route::get("", Login::class)->name('login');
+Route::get("/", Login::class)->name('login');
+Route::get("/login", Login::class)->name('login');

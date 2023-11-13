@@ -15,16 +15,10 @@ class TokenResult {
      * @SerializedName("expiresAt") 
     */
     protected $expiresAt;
+
     public function __construct($accessToken, $expiresAt){
         $this->accessToken = $accessToken;
         $this->expiresAt = $expiresAt;
-    }
-
-    public static function create($passportToken){
-        return new TokenResult(
-            $passportToken->accessToken,
-            $passportToken->token->expires_at->toDateString()
-        ); 
     }
  
     public function getAccessToken(){

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -32,6 +33,16 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password'
     ];
+
+    /**
+     * Set hash password attributes before save.
+     *
+     * @var array
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

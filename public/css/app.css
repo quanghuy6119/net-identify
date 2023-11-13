@@ -3885,6 +3885,7 @@ input[type=button].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  font-size: 16px;
 }
 .nav-link:hover, .nav-link:focus {
   text-decoration: none;

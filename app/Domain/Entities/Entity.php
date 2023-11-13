@@ -29,18 +29,4 @@ abstract class Entity{
         $this->id = $id;
         return $this;
     }
-
-    public function copyFrom($object){
-       $vars = is_object($object) ? get_object_vars($object) : $object; // get properties of the object
-       if(!is_array($vars)) throw new \Exception('Couldnt props error');
-       $prop = null;
-       try {
-            foreach($vars as $key => $value){
-                $this->$key = $value;
-                $prop = $key;
-            }
-       } catch(\Exception $exp){
-           throw new EntitiesMappingException("${prop} was not found");
-       }
-   }
 }
