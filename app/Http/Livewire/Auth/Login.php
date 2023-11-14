@@ -2,32 +2,36 @@
 
 namespace App\Http\Livewire\Auth;
 
+use App\Domain\Exceptions\InvalidInputException;
+use App\Providers\RouteServiceProvider;
+use App\Services\Auth\HTTPCookieManager;
+use App\Services\Contracts\AuthServiceInterface;
+use App\Utilities\Container\ContainerTrait;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 
 class Login extends Component
 {
+    use ContainerTrait;
     public $error = '';
     public $email = '';
     public $password = '';
 
-    public function render()
-    {
+    public function render() {
         return view('livewire.auth.login');
     }
 
-    public function authenticate()
-    {
+    public function authenticate() {
         $this->validate(["email"=> 'required|email', "password"=> "required"]);
 
-
-        Auth::attempt($this->form);
-        if (Auth::attempt($this->form)) {
-            session()->flash('success', "You are Logged in successfully!");
-            return redirect(route("home"));
-        }
-        else {
-            $this->error = "Email or Password wrong!!";
+        try {
+            $authService = $this->resolve(AuthServiceInterface::class);
+            $token = $authService->attempt($this->email, $this->password);
+            HTTPCookieManager::setAccessToken($token);
+            
+            return redirect()->intended(RouteServiceProvider::HOME);
+        
+        } catch(InvalidInputException $ex) {
+            $this->error = $ex->getError();
         }
     }
 }

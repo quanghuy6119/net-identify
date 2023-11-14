@@ -1,6 +1,8 @@
 <?php
 namespace App\Domain\Repositories\Contracts;
 
+use App\Domain\Entities\User\User;
+
 interface UserRepositoryInterface extends RepositoryContainerInterface {
     /**
      * Get by email

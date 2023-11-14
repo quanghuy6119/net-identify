@@ -46,10 +46,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\Cors::class
             
         ],
-
-        'client_credentials' => [
-            'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
-        ],
     ];
 
     /**
@@ -70,5 +66,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
+        'auth.jwt' => \App\Http\Middleware\JWTAuthenticateRequest::class,
     ];
 }

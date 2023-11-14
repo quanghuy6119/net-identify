@@ -31,8 +31,9 @@ class UserRepository extends Repository implements UserRepositoryInterface
      */
     public function getByEmail(string $email): ?User
     {
+        $adapter = new UserAdapter();
         $query = $this->retriever->makeQuery();
         $result = $query->where('email', $email)->first();
-        return $this->entityAdapter->toEntity($result);
+        return $adapter->toEntity($result);
     }
 }

@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Auth\Login;
-use App\Http\Livewire\Navbar;
+use App\Http\Livewire\Home;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,5 +15,11 @@ use App\Http\Livewire\Navbar;
 |
 */
 
-Route::get("/", Login::class)->name('login');
-Route::get("/login", Login::class)->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get("/login", Login::class)->name('login');
+});
+
+Route::middleware(['auth.jwt'])->group(function () {
+    Route::get("/", Home::class)->name('home');
+    Route::get("/home", Home::class)->name('home');
+});

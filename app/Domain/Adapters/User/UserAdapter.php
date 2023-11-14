@@ -13,18 +13,42 @@ class UserAdapter implements EntityAdapterInterface {
      * @param User $entity
      * @return EloquentUser
      */
-    public function toEloquent($entity)
+    public function toNewEloquent($entity)
     {
         $model = new EloquentUser();
-        $model->fill([
+        $model->fill($this->getFillable($entity));
+        return $model;
+    }
+
+    /**
+     * Convert entity to eloquent
+     *
+     * @param User $entity
+     * @return EloquentUser
+     */
+    public function toEloquent($entity)
+    {
+        $model = EloquentUser::firstOrNew(["id" => $entity->getId()]);
+        $model->fill($this->getFillable($entity));
+        return $model;
+    }
+
+    /**
+     * Get fillable attributes convert entity to eloquent
+     *
+     * @param User $entity
+     * @return array
+     */
+    private function getFillable($entity) 
+    {
+        return [
             "role" => $entity->getRole(),
             "name" => $entity->getName(),
             "email" => $entity->getEmail(),
             "password" => $entity->getPassword(),
             "created_at" => $entity->getCreatedAt(),
             "updated_at" => $entity->getUpdatedAt()
-        ]);
-        return $model;
+        ];
     }
 
     /**

@@ -43,8 +43,11 @@ class AuthService extends Service implements AuthServiceInterface
     {
         $user = $this->users->getByEmail($email);
         if(!is_null($user)) {
-            if(Hash::check($password, $user->getPassword())) 
+            if(Hash::check($password, $user->getPassword())) {
                 $token = $this->tokens->generate($user);
+                SessionManager::refresh($token->getAccessToken());
+                return $token;
+            }
         };
 
         throw new InvalidInputException("Email or Password is invalid!!");

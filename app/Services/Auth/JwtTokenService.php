@@ -5,8 +5,6 @@ use App\Domain\Adapters\User\UserAdapter;
 use App\Domain\Entities\Token\TokenResult;
 use App\Services\Contracts\JWTTokenServiceInterface;
 use App\Domain\Entities\User\User;
-use DateInterval;
-use DateTime;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JwtTokenService implements JWTTokenServiceInterface{
@@ -20,11 +18,11 @@ class JwtTokenService implements JWTTokenServiceInterface{
     public function generate(User $user, array $options = []): TokenResult{
         $ttl = env("JWT_TTL") ?? 60 * 24 * 1; // 2 days
         $expiredTime = now()->addDays(2);
+        JWTAuth::factory()->setTTL($ttl);
 
-        $adapter = (new UserAdapter())->toEloquent($user);
-        $token = JWTAuth::claims($options)->setTTL($ttl)->fromUser($userModel);
+        $model = (new UserAdapter())->toEloquent($user);
+        $token = empty($options) ? JWTAuth::fromUser($model) : JWTAuth::claims($options)->fromUser($model);
 
-        $expirationTime = $this->expirationTimeFromTTL($ttl * 60);
-        return new TokenResult($token, $expirationTime);
+        return new TokenResult($token, $expiredTime);
     }
 }
