@@ -27,14 +27,4 @@ class SupporterServiceProvider extends ServiceProvider
     public  function boot()
     {
     }
-
-    private function getBearerToken(Request $request)
-    {
-        $authorization = $request->headers->get("Authorization", '');
-        $token = env('PASSPORT_CLIENT_TOKEN');
-        if (\Str::startsWith($authorization, 'Bearer ')) {
-            $token = \Str::substr($authorization, 7);
-        }
-        return $token;
-    }
 }

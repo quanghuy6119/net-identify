@@ -44,13 +44,6 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
         });
 
-        $this->renderable(function (AuthenticationException $e) {
-            return $this->sendError("Unauthenticated", null, StatusCode::UNAUTHENTICATED, Response::HTTP_UNAUTHORIZED);
-        });
-        $this->renderable(function (AccessDeniedHttpException $e) {
-            return $this->sendError("You don't have permission to access", null, StatusCode::UNAUTHORIZED, Response::HTTP_FORBIDDEN);
-        });
-
         $this->renderable(function (HttpException $e) {
             return $this->sendError("Route is not found", null, StatusCode::NOT_FOUND_ROUTE, Response::HTTP_NOT_FOUND);
         });
