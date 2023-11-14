@@ -20,13 +20,6 @@ use App\Domain\Repositories\Traits\WithAdapter;
  * Class DataManager
  *
  * This class provides methods to manage data in the database.
- * @author Fox
- * Logs:
- *      - Implemented logic codes for update, updateAttributes, create, delete methods
- *      - Edit deleteById(): Add 2 params getCode(), $ex to DatabaseException constructor 
- * Updated at: 2023-06-19
- *      - (BaoHoa) Edit logics in update method: skip updating createdAt (ln96), fix creating new model (ln 100)
- *      - Edit updateAttributes method: return $rs->update($model->toArray()) (BaoHoa - 07/11)
  */
 class DataManager
 {
@@ -74,7 +67,7 @@ class DataManager
     {
         throw_if(is_null($this->adapter()), Exception::class, ["message" => "Entity adapter is null"]);
       
-        $model = $this->adapter()->toEloquent($entity);
+        $model = $this->adapter()->toNewEloquent($entity);
         try {
             $model->save();
         } catch (\PDOException $ex) {
@@ -105,7 +98,7 @@ class DataManager
         // skip to update created at
         if($rs->timestamps) $entity->setAttribute("createdAt",  $rs->created_at);
         // new model
-        $model = $this->adapter()->toEloquent($entity);
+        $model = $this->adapter()->toNewEloquent($entity);
         // fill converted data to old model
         $rs->fill($model->toArray());
         return $rs->save();
@@ -132,7 +125,7 @@ class DataManager
 
         $entity->setAttributes($attributes);
         try {
-            $model = $this->adapter()->toEloquent($entity);
+            $model = $this->adapter()->toNewEloquent($entity);
 
             return $rs->update($model->toArray());
         } catch (QueryException $ex) {

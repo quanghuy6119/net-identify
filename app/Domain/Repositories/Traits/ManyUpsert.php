@@ -91,7 +91,7 @@ trait ManyUpsert {
     {
         $eloquentArray = [];
         foreach ($entities as $entity) {
-            $eloquent = $this->adapter()->toEloquent($entity);
+            $eloquent = $this->adapter()->toNewEloquent($entity);
             $eloquentArray[] = $eloquent;
         }
         return $eloquentArray;

@@ -17,10 +17,6 @@ use Illuminate\Support\Collection;
  * Class DataRetriever
  *
  * This class is responsible for retrieving data from the database using various criteria and adapters.
- * @author Fox
- * Logs:
- *      - Implemented methods(getById, getByIds, get, count, find)
- * Updated at: 2023-06-19
  */
 class DataRetriever implements CriteriaManager{
 
