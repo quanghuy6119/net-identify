@@ -1,0 +1,19 @@
+.navbar-1 {
+    height: 85px;
+  }
+
+.card-login-form {
+    margin-top: 50px;
+    border: none !important;
+    min-height: 600px;
+    padding: 50px 50px;
+}
+
+.navbar-brand-image {
+    height: 3rem;
+}
+
+.btn-login {
+    height: 55px;
+    width: 110px;
+}

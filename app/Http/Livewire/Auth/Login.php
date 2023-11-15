@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Auth;
 
 use App\Domain\Exceptions\InvalidInputException;
 use App\Providers\RouteServiceProvider;
-use App\Services\Auth\HTTPCookieManager;
 use App\Services\Contracts\AuthServiceInterface;
 use App\Utilities\Container\ContainerTrait;
 use Livewire\Component;
@@ -25,8 +24,7 @@ class Login extends Component
 
         try {
             $authService = $this->resolve(AuthServiceInterface::class);
-            $token = $authService->attempt($this->email, $this->password);
-            HTTPCookieManager::setAccessToken($token);
+            $authService->attempt($this->email, $this->password);
             
             return redirect()->intended(RouteServiceProvider::HOME);
         

@@ -10,6 +10,7 @@
     <title>NET</title>
     
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" data-turbolinks-track="reload">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" data-turbolinks-track="reload">
 
     <livewire:styles />
 
