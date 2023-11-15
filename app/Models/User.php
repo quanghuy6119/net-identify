@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Domain\Constants\UserRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\File;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Support\Facades\Hash;
 
@@ -60,5 +62,33 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims() {
         return [];
+    }
+
+    /**
+     * Return the path of avatar of user.
+     *
+     * @return string
+     */
+    public function avatar() {
+        $extensions = ['jpeg', 'jpg', 'png'];
+        foreach ($extensions as $extension) {
+            $avatar = '/avatars/' . $this->id . "." . $extension;
+            if (File::exists(public_path() . $avatar)) return env('APP_URL') . $avatar;
+        }
+        return env('APP_URL'). '/avatars/0.jpg';
+    }
+
+    /**
+     * Return name role.
+     *
+     * @return string
+     */
+    public function convertRole() {
+        switch($this->role) {
+            case UserRoles::SUPER_ADMIN: 
+                return "Super admin";
+            default:
+                return "Client";
+        }
     }
 }

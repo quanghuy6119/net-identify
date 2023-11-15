@@ -25,6 +25,15 @@ class HTTPCookieManager {
     }
 
     /**
+     * Forget access token
+     *
+     * @return void
+     */
+    public static function forgetAccessToken() {
+        cookie()->forget('access_token');
+    }
+
+    /**
      * Get access token
      *
      * @param Request $request

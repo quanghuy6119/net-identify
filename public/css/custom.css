@@ -3,10 +3,10 @@
   }
 
 .card-login-form {
-    margin-top: 50px;
+    margin-top: 20px;
     border: none !important;
     min-height: 600px;
-    padding: 50px 50px;
+    padding: 50px 30px;
 }
 
 .navbar-brand-image {
@@ -16,4 +16,8 @@
 .btn-login {
     height: 55px;
     width: 110px;
+}
+
+.dropdown-item {
+    cursor: pointer;
 }

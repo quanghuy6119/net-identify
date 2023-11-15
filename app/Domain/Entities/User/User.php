@@ -2,8 +2,6 @@
 namespace App\Domain\Entities\User;
 
 use App\Domain\Entities\Entity;
-use App\Domain\Exceptions\ParseDataErrorException;
-use Carbon\Carbon;
 use DateTime;
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\AccessorOrder;
@@ -13,6 +11,7 @@ use JMS\Serializer\Annotation\AccessorOrder;
 */
 class User extends Entity
 {
+    use AvatarProp;
     /**
      * @Serializer\SerializedName("name")
      * @var string

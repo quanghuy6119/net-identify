@@ -9,17 +9,51 @@ class SessionManager {
      * Make refresh session
      *
      * @param string $newToken
-     * @param string|null $refreshToken
+     * @param string|null $refreshedToken
      * @return void
      */
-    public static function refresh(string $newToken, ?string $refreshToken = null) {
+    public static function refresh(string $newToken, ?string $refreshedToken = null) {
         $tokens = Session::get('access_tokens') ?? [];
         $tokens[] = $newToken;
-        if (!$refreshToken) $tokens = array_diff($tokens, [$refreshToken]);
+        if (!$refreshedToken) $tokens = array_diff($tokens, [$refreshedToken]);
 
+        self::regenerate();
+        Session::put('access_tokens', $tokens);
+    }
+
+    /**
+     * Forget specific token
+     *
+     * @param string $token
+     * @return array
+     */
+    public static function forgetToken(string $token) {
+        $tokens = Session::get('access_tokens') ?? [];
+        $tokens = array_diff($tokens, [$token]);
+        Session::put('access_tokens', $tokens);
+
+        return $tokens;
+    }
+
+    /**
+     * Get tokens
+     *
+     * @param string $token
+     * @return array
+     */
+    public static function getTokens() {
+        return Session::get('access_tokens') ?? [];
+    }
+
+    /**
+     * Fresh new session
+     *
+     * @return void
+     */
+    public static function regenerate() {
         Session::flush();
         Session::regenerate();
-        Session::put('access_tokens', $tokens);
+        Session::regenerateToken();
     }
 
     /**
