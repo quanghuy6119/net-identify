@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Services\Auth\HTTPCookieManager;
 use Illuminate\Support\Facades\Session;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JWTAuthenticateRequest
 {
@@ -19,13 +20,20 @@ class JWTAuthenticateRequest
     public function handle(Request $request, Closure $next)
     {
         $accessToken = HTTPCookieManager::getAccessToken($request);
-        return $accessToken === null || !$this->checkTokenExistInSession($accessToken) ? route('login') : $next($request);
+        if ($accessToken === null || !$this->checkTokenExistInSession($accessToken)) return redirect('login');
+
+        try {
+            auth()->login(JWTAuth::setToken($accessToken)->toUser());
+        } catch (\Exception $e) {
+            return redirect('login');
+        }
+        
+        return $next($request);
     }
 
     private function checkTokenExistInSession($accessToken) {
         if ($accessToken === null) return false;
-
-        $accessTokens = Session::get('access_tokens');
+        $accessTokens = Session::get('access_tokens') ?? [];
         foreach($accessTokens as $token) {
             if ($token === $accessToken) return true;
         }
