@@ -21,7 +21,6 @@ class Login extends Component
 
     public function authenticate() {
         $this->validate(["email"=> 'required|email', "password"=> "required"]);
-
         try {
             $authService = $this->resolve(AuthServiceInterface::class);
             $authService->attempt($this->email, $this->password);

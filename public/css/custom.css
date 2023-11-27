@@ -1,12 +1,29 @@
+.container{
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.dot{
+    width:20px;
+    height:20px;
+    position:absolute;
+    background: url(https://cdn.iconscout.com/icon/premium/png-512-thumb/snow-2309691-1947147.png?f=webp&w=256);
+    background-size: 100% 100%;
+    top: 1%;
+}
+
 .navbar-1 {
     height: 85px;
-  }
+}
 
 .card-login-form {
     margin-top: 20px;
     border: none !important;
-    min-height: 600px;
-    padding: 50px 30px;
+    min-height: 300px;
+    padding: 20px 30px;
+    width: 550px;
+    background-color: rgb(244, 255, 255)!important;
 }
 
 .navbar-brand-image {
@@ -20,4 +37,16 @@
 
 .dropdown-item {
     cursor: pointer;
+}
+
+.user-selected {
+    margin-top: 5px!important;
+    background-color: rgb(183, 233, 233);
+    border-radius: 5px;
+}
+
+.user-selected :hover {
+    opacity: 0.5;
+    cursor: pointer;
+    background-color: rgb(255, 250, 254);
 }

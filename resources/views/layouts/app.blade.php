@@ -11,6 +11,7 @@
     
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" data-turbolinks-track="reload">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" data-turbolinks-track="reload">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <livewire:styles />
 

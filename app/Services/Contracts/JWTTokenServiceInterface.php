@@ -13,4 +13,11 @@ interface JWTTokenServiceInterface{
      * @return TokenResult
      */
     public function generate(User $user, array $options = []): TokenResult;
+
+    /**
+     * Get list current accounts
+     *
+     * @return array
+     */
+    public function getListCurrentAccounts(): array;
 }

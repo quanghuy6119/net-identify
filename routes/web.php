@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Auth\Authorize;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Home;
@@ -14,6 +15,8 @@ use App\Http\Livewire\Home;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get("/a", Authorize::class);
 
 Route::middleware('guest')->group(function () {
     Route::get("/login", Login::class)->name('login');

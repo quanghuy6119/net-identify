@@ -25,4 +25,22 @@ class JwtTokenService implements JWTTokenServiceInterface{
 
         return new TokenResult($token, $expiredTime);
     }
+
+    /**
+     * Get list current accounts
+     *
+     * @return array
+     */
+    public function getListCurrentAccounts(): array {
+        $tokens = SessionManager::getTokens();
+
+        $results = [];
+        $userAdapter = new UserAdapter();
+        foreach($tokens as $token) {
+            $user = JWTAuth::setToken($token)->toUser();
+            $results[] = $userAdapter->toEntity($user);
+        }
+
+        return $results;
+    }
 }
